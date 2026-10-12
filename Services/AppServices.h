@@ -4,6 +4,7 @@
 #include "Services/ModemService.h"
 #include "Services/UssdSessionManager.h"
 #include "Services/InboxImporter.h"
+#include "Services/SmsSender.h"
 
 #include <filesystem>
 #include <memory>
@@ -32,6 +33,8 @@ namespace wan
         std::unique_ptr<UssdSessionManager> ussd;
 
         std::unique_ptr<InboxImporter> importer;
+
+        std::unique_ptr<SmsSender> sms;
 
         // [members]
     };

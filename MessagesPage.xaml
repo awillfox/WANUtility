@@ -76,7 +76,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBox x:Name="SearchBox" PlaceholderText="Search messages" TextChanged="SearchBox_TextChanged" />
-                <Button x:Name="NewButton" Grid.Column="1" ToolTipService.ToolTip="New message">
+                <Button x:Name="NewButton" Grid.Column="1" ToolTipService.ToolTip="New message" Click="NewButton_Click">
                     <FontIcon Glyph="&#xE710;" FontSize="14" />
                 </Button>
             </Grid>
@@ -90,7 +90,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock x:Name="ThreadTitle" Style="{StaticResource SubtitleTextBlockStyle}" Text="Select a conversation" />
-            <TextBox x:Name="ToBox" PlaceholderText="To: phone number" Visibility="Collapsed" />
+            <TextBox x:Name="ToBox" PlaceholderText="To: phone number" Visibility="Collapsed" TextChanged="ComposeInput_TextChanged" />
             <ScrollViewer x:Name="BubbleScroller" Grid.Row="1">
                 <StackPanel x:Name="Bubbles" Spacing="6" Padding="0,0,12,0" />
             </ScrollViewer>
@@ -99,8 +99,8 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="ComposeBox" PlaceholderText="Type a message" AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="120" />
-                <Button x:Name="SendButton" Grid.Column="1" Content="Send" Style="{StaticResource AccentButtonStyle}" IsEnabled="False" VerticalAlignment="Bottom" />
+                <TextBox x:Name="ComposeBox" PlaceholderText="Type a message" AcceptsReturn="True" TextWrapping="Wrap" MaxHeight="120" TextChanged="ComposeInput_TextChanged" />
+                <Button x:Name="SendButton" Grid.Column="1" Content="Send" Style="{StaticResource AccentButtonStyle}" IsEnabled="False" VerticalAlignment="Bottom" Click="SendButton_Click" />
             </Grid>
         </Grid>
     </Grid>

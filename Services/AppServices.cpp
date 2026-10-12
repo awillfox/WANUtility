@@ -45,6 +45,8 @@ namespace wan
         s.importer = std::make_unique<InboxImporter>();
         s.importer->Start(); // suspends at its first co_await; NewIncoming subscribers added later in OnLaunched still see every toast-worthy message
 
+        s.sms = std::make_unique<SmsSender>();
+
         // [services]
     }
 }

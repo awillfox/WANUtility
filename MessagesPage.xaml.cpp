@@ -9,6 +9,7 @@
 #include "Services/AppServices.h"
 #include "Services/ErrorText.h"
 #include "Services/ModemService.h"
+#include "Services/SmsSender.h"
 #include "Services/TimeUtil.h"
 
 using namespace winrt;
@@ -238,7 +239,12 @@ namespace winrt::WANUtility::implementation
             error.Style(LocalStyle(L"ErrorText"));
             error.Text(m.errorDetail);
             content.Children().Append(error);
-            // [retry-button] (Task 11)
+            HyperlinkButton retry;
+            retry.Content(box_value(L"Retry"));
+            retry.Padding(Thickness{ 0, 0, 0, 0 });
+            const int64_t id = m.id;
+            retry.Click([id](IInspectable const&, RoutedEventArgs const&) { wan::Services().sms->Retry(id); });
+            content.Children().Append(retry);
         }
 
         Border bubble;
@@ -249,7 +255,44 @@ namespace winrt::WANUtility::implementation
 
     void MessagesPage::UpdateSendEnabled()
     {
-        // Task 11 implements sending; until then the Send button stays disabled.
-        SendButton().IsEnabled(false);
+        auto& s = wan::Services();
+        const bool ready = s.db && s.modem->Status().ready;
+        const bool hasRecipient = m_newMode
+            ? wan::core::IsPhoneNumberKey(wan::core::ThreadKeyFor(ToBox().Text()))
+            : (!m_replyAddress.empty() && wan::core::IsPhoneNumberKey(m_threadKey)); // "dtac" cannot receive SMS
+        const bool hasBody = !wan::core::Trim(ComposeBox().Text()).empty();
+        SendButton().IsEnabled(ready && hasRecipient && hasBody);
+    }
+
+    void MessagesPage::NewButton_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        m_newMode = true;
+        m_threadKey.clear();
+        m_refreshing = true;
+        ThreadList().SelectedItem(nullptr);
+        m_refreshing = false;
+        ToBox().Text(L"");
+        RefreshConversation();
+        ToBox().Focus(FocusState::Programmatic);
+    }
+
+    void MessagesPage::ComposeInput_TextChanged(IInspectable const&, TextChangedEventArgs const&)
+    {
+        UpdateSendEnabled();
+    }
+
+    void MessagesPage::SendButton_Click(IInspectable const&, RoutedEventArgs const&)
+    {
+        const auto body = wan::core::Trim(ComposeBox().Text());
+        const auto address = m_newMode ? wan::core::Trim(ToBox().Text()) : m_replyAddress;
+        if (body.empty() || address.empty()) return;
+
+        ComposeBox().Text(L"");
+        m_newMode = false;
+        m_threadKey = wan::core::ThreadKeyFor(address);
+        // Send() inserts the "sending" row before its first suspension, so the refresh below shows it.
+        wan::Services().sms->Send(address, body);
+        RefreshThreads();
+        RefreshConversation();
     }
 }
