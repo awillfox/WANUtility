@@ -72,7 +72,7 @@ Windows 11 utility for the machine's built-in cellular (WAN) modem: run USSD cod
 | Send SMS | `SmsDevice2::GetDefault()` + `SendMessageAndGetResultAsync` | Works. Local-format number `0889605613` accepted; delivery confirmed by user. SMSC `+66942500500`. |
 | USSD | `UssdSession::CreateFromNetworkAccountId` + `SendMessageAndGetReplyAsync` | Works. dtac replies with DCS `0x48` (UCS-2). **`PayloadAsText()` returns empty for UCS-2** — must decode `GetPayload()` bytes as UTF-16 BE ourselves. |
 | Receive SMS (history) | `ChatMessageManager::RequestStoreAsync()` + `GetMessageReader().ReadBatchAsync()` | Works with rescap `chatSystem`. Incoming SMS land in the system chat store; newest-first. |
-| Receive SMS (live) | `ChatMessageStore.MessageChanged` | Event fires, but carries no details in this SDK and also fired with no new message (during a USSD send). Treat it as a "re-read" signal and diff by message id. Not yet observed firing for a genuinely new SMS — verify in the real app. |
+| Receive SMS (live) | `ChatMessageStore.MessageChanged` | Event fires, but carries no details in this SDK and also fired with no new message (during a USSD send). Treat it as a "re-read" signal and diff by message id. **Fires for a genuinely new SMS** (Task 10: SMS timestamp 18:05:28.941, imported 18:05:28.991; the 60 s timer was not due). Numeric senders arrive as `+66…` in `From()`. First import of the existing store: 101 messages. |
 | Receive SMS (registration) | `SmsMessageRegistration::Register` | **Denied**: `0xD0000022` (STATUS_ACCESS_DENIED). Don't use. |
 | Legacy `SmsDevice` / message store | — | **Removed** from SDK 10.0.28000 metadata. Not available. |
 

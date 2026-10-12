@@ -3,6 +3,7 @@
 #include "Services/Signal.h"
 #include "Services/ModemService.h"
 #include "Services/UssdSessionManager.h"
+#include "Services/InboxImporter.h"
 
 #include <filesystem>
 #include <memory>
@@ -29,6 +30,8 @@ namespace wan
         std::unique_ptr<ModemService> modem;
 
         std::unique_ptr<UssdSessionManager> ussd;
+
+        std::unique_ptr<InboxImporter> importer;
 
         // [members]
     };

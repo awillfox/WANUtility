@@ -42,6 +42,9 @@ namespace wan
 
         s.ussd = std::make_unique<UssdSessionManager>();
 
+        s.importer = std::make_unique<InboxImporter>();
+        s.importer->Start(); // suspends at its first co_await; NewIncoming subscribers added later in OnLaunched still see every toast-worthy message
+
         // [services]
     }
 }
