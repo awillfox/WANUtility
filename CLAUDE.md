@@ -55,9 +55,10 @@ Windows 11 utility for the machine's built-in cellular (WAN) modem: run USSD cod
 - Spec: `docs/superpowers/specs/2026-10-12-wanutility-design.md` (all design decisions live there).
 - Plan: `docs/superpowers/plans/2026-10-12-wanutility-v1.md` (16 tasks). Deviations from spec, approved
   with the plan: CppUnitTest + vstest instead of GoogleTest (no nuget.exe here); threads computed by query.
-- Current state: spec approved, plan written, awaiting plan review + execution choice. Git identity not yet
-  set (commits blocked until user gives GitHub email). Spike code in
-  `MainWindow.xaml*` (marked `SPIKE`) is throwaway and gets replaced by the real app.
+- Current state: executing the plan natively on branch `feat/v1` (baseline commit on `main`). Progress
+  ledger (git-ignored): `.superpowers/sdd/2026-10-12-wanutility-v1/progress.md`, which lists completed tasks
+  and every ruling that deviates from the plan. Git author: `Nate <natee@shipnity.com>` (repo-local).
+- Commands: unit tests `scripts\test.ps1`; build + (re)register + launch `scripts\deploy.ps1` (keeps LocalState).
 - Test values approved by user: USSD `*101#`; test SMS recipient `0889605613`.
 - Real SMS costs money: never send automatically more than once. The spike guards this with
   `sms_attempted.marker` in the package LocalState folder.
@@ -85,3 +86,12 @@ dtac codes: `*101#` = balance (free); `*101*1#` = request package-status SMS (ar
   Removing the package **deletes LocalState**. If only code changed, rebuilding is enough.
 - `std::wofstream` in the C locale silently drops everything after the first Thai char. Write UTF-8.
 - `UssdMessage` has no default ctor: `UssdMessage{ text }`.
+- Custom `wWinMain` (`main.cpp`, `DISABLE_XAML_GENERATED_MAIN`): do **not** call the generated
+  `wXamlGeneratedMain()`. It only constructs `App` when a `has_parameterless_ctor_v` trait is true, and that
+  trait is false for our C++/WinRT `App`, so XAML started with no Application and crashed with `0xC000027B`
+  in Microsoft.UI.Xaml.dll before any of our code ran. `main.cpp` calls `Application::Start` + `make<App>()` itself.
+- CppUnitTest: `CppUnitTestCommon.h` links `x64\<lib>` via `#pragma comment`, so the library dir must be
+  `...\VC\Auxiliary\VS\UnitTest\lib` (not `...\lib\x64`), or the link fails with LNK1104.
+- `Frame::Navigate(xaml_typename<T>())` needs `<winrt/Windows.UI.Xaml.Interop.h>` (in `pch.h`).
+- Screenshots for verification: capture only the app window (`PrintWindow` on its HWND), never the
+  whole screen. Other windows on this machine can contain private content.
