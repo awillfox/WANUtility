@@ -51,6 +51,8 @@
     <ClCompile Include="UssdMenuParserTests.cpp" />
     <ClCompile Include="..\Core\MessageDb.cpp" />
     <ClCompile Include="MessageDbTests.cpp" />
+    <ClCompile Include="..\Core\Log.cpp" />
+    <ClCompile Include="LogTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

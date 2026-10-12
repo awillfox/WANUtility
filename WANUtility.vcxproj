@@ -133,6 +133,7 @@
     <ClInclude Include="Core\PhoneNumber.h" />
     <ClInclude Include="Core\UssdMenuParser.h" />
     <ClInclude Include="Core\MessageDb.h" />
+    <ClInclude Include="Core\Log.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -158,6 +159,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Core\MessageDb.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Core\Log.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="App.xaml.cpp">
