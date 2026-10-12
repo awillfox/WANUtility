@@ -8,7 +8,8 @@
   xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
   xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
   xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
-  IgnorableNamespaces="uap rescap systemai com desktop">
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap rescap systemai com desktop uap5">
 
   <Identity
     Name="29d4b340-cdbf-4ef2-8a8c-cb0bc4b163e0"
@@ -57,6 +58,9 @@
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
+        <uap5:Extension Category="windows.startupTask" Executable="WANUtility.exe" EntryPoint="Windows.FullTrustApplication">
+          <uap5:StartupTask TaskId="WANUtilityStartup" Enabled="false" DisplayName="WANUtility" />
+        </uap5:Extension>
       </Extensions>
     </Application>
   </Applications>

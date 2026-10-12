@@ -101,6 +101,12 @@ namespace winrt::WANUtility::implementation
             return;
         }
 
+        if (kind == ExtendedActivationKind::StartupTask && !fromRedirect)
+        {
+            wan::core::Log::Write(L"Started at sign-in: staying in the tray");
+            return;
+        }
+
         // [activation]
 
         ShowMainWindow();

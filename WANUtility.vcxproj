@@ -153,6 +153,7 @@
     <ClInclude Include="Services\WindowsStoreSync.h" />
     <ClInclude Include="Services\TrayIcon.h" />
     <ClInclude Include="Services\Notifier.h" />
+    <ClInclude Include="Services\StartupSetting.h" />
     <ClInclude Include="MessagesPage.xaml.h"><DependentUpon>MessagesPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="UssdPage.xaml.h"><DependentUpon>UssdPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="SettingsPage.xaml.h"><DependentUpon>SettingsPage.xaml</DependentUpon></ClInclude>
@@ -202,6 +203,7 @@
     <ClCompile Include="Services\WindowsStoreSync.cpp" />
     <ClCompile Include="Services\TrayIcon.cpp" />
     <ClCompile Include="Services\Notifier.cpp" />
+    <ClCompile Include="Services\StartupSetting.cpp" />
     <ClCompile Include="MessagesPage.xaml.cpp"><DependentUpon>MessagesPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="UssdPage.xaml.cpp"><DependentUpon>UssdPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="SettingsPage.xaml.cpp"><DependentUpon>SettingsPage.xaml</DependentUpon></ClCompile>
