@@ -127,6 +127,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Core\TextUtil.h" />
     <ClInclude Include="Core\Ucs2.h" />
+    <ClInclude Include="Core\PhoneNumber.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -143,6 +144,9 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Core\Ucs2.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Core\PhoneNumber.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="App.xaml.cpp">

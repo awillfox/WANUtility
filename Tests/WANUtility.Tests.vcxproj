@@ -45,6 +45,8 @@
     <ClCompile Include="..\Core\Ucs2.cpp" />
     <ClCompile Include="Ucs2Tests.cpp" />
     <ClCompile Include="TextUtilTests.cpp" />
+    <ClCompile Include="..\Core\PhoneNumber.cpp" />
+    <ClCompile Include="PhoneNumberTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
