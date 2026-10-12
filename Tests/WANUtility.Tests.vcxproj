@@ -47,6 +47,8 @@
     <ClCompile Include="TextUtilTests.cpp" />
     <ClCompile Include="..\Core\PhoneNumber.cpp" />
     <ClCompile Include="PhoneNumberTests.cpp" />
+    <ClCompile Include="..\Core\UssdMenuParser.cpp" />
+    <ClCompile Include="UssdMenuParserTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
