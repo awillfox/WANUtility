@@ -10,7 +10,13 @@ namespace winrt::WANUtility::implementation
 
         void OnLaunched(Microsoft::UI::Xaml::LaunchActivatedEventArgs const&);
 
+        void ShowMainWindow();
+        void ShowThread(std::wstring const& threadKey);
+        void ExitApp();
+
     private:
-        winrt::Microsoft::UI::Xaml::Window window{ nullptr };
+        void HandleActivation(Microsoft::Windows::AppLifecycle::AppActivationArguments const& args, bool fromRedirect);
+
+        WANUtility::MainWindow m_window{ nullptr };
     };
 }

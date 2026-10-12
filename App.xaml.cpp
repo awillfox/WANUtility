@@ -2,42 +2,72 @@
 #include "App.xaml.h"
 #include "MainWindow.xaml.h"
 
+#include "Core/Log.h"
+#include "Services/AppServices.h"
+
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using namespace Microsoft::Windows::AppLifecycle;
 
 namespace winrt::WANUtility::implementation
 {
-    /// <summary>
-    /// Initializes the singleton application object.  This is the first line of authored code
-    /// executed, and as such is the logical equivalent of main() or WinMain().
-    /// </summary>
     App::App()
     {
-        // Xaml objects should not call InitializeComponent during construction.
-        // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-
-#if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
         UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
         {
+            wan::core::Log::Write(L"UNHANDLED " + std::wstring(e.Message()));
+#if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
             if (IsDebuggerPresent())
             {
-                auto errorMessage = e.Message();
                 __debugbreak();
             }
-        });
 #endif
+        });
     }
 
-    /// <summary>
-    /// Invoked when the application is launched.
-    /// </summary>
-    /// <param name="e">Details about the launch request and process.</param>
-    void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
+    void App::OnLaunched(LaunchActivatedEventArgs const&)
     {
-        window = make<MainWindow>();
-        window.Activate();
+        wan::InitializeServices();
+
+        // [app-init]
+
+        m_window = make<MainWindow>();
+
+        // A second launch (or a toast click) in another process is redirected here by main.cpp.
+        AppInstance::GetCurrent().Activated([this](IInspectable const&, AppActivationArguments const& args)
+        {
+            wan::Services().dispatcher.TryEnqueue([this, args] { HandleActivation(args, true); });
+        });
+        HandleActivation(AppInstance::GetCurrent().GetActivatedEventArgs(), false);
+    }
+
+    void App::HandleActivation(AppActivationArguments const& args, bool fromRedirect)
+    {
+        wan::core::Log::Write(L"Activation kind " + std::to_wstring(static_cast<int>(args.Kind())) + (fromRedirect ? L" (redirected)" : L""));
+
+        // [activation]
+
+        ShowMainWindow();
+    }
+
+    void App::ShowMainWindow()
+    {
+        get_self<MainWindow>(m_window)->ShowAndFocus();
+    }
+
+    void App::ShowThread(std::wstring const& threadKey)
+    {
+        ShowMainWindow();
+        get_self<MainWindow>(m_window)->ShowThread(threadKey);
+    }
+
+    void App::ExitApp()
+    {
+        wan::core::Log::Write(L"Exit requested");
+
+        // [exit]
+
+        get_self<MainWindow>(m_window)->AllowCloseAndClose();
+        Application::Current().Exit();
     }
 }

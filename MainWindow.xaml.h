@@ -1,37 +1,30 @@
 #pragma once
 
 #include "MainWindow.g.h"
-#include <winrt/Windows.Devices.Sms.h>
-#include <winrt/Windows.ApplicationModel.Chat.h>
 
 namespace winrt::WANUtility::implementation
 {
     struct MainWindow : MainWindowT<MainWindow>
     {
-        MainWindow()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        MainWindow() {}
 
-        int32_t MyProperty();
-        void MyProperty(int32_t value);
+        // Runs after XAML loads (C++/WinRT deferred InitializeComponent pattern).
+        void InitializeComponent();
 
-        fire_and_forget root_Loaded(Windows::Foundation::IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
+        void Nav_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView const& sender,
+                                  Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs const& args);
+
+        void ShowAndFocus();
+        void ShowThread(std::wstring const& threadKey);
+        void AllowCloseAndClose();
 
     private:
-        void Log(std::wstring const& line);
-        Windows::Foundation::IAsyncAction ProbeUssd();
-        Windows::Foundation::IAsyncAction ProbeSms();
-        Windows::Foundation::IAsyncAction DumpStores(std::wstring label);
-        Windows::Foundation::IAsyncAction SubscribeChat();
+        void OnClosing(Microsoft::UI::Windowing::AppWindow const& sender, Microsoft::UI::Windowing::AppWindowClosingEventArgs const& args);
+        void ShowError(std::wstring const& message);
 
-        Windows::ApplicationModel::Chat::ChatMessageStore m_chatStore{ nullptr };
-
-        int m_received{ 0 };
-
-        std::wstring m_logPath;
-        bool m_started{ false };
+        HWND m_hwnd{};
+        bool m_closeToTray = false; // Task 13 turns this on
+        bool m_allowClose = false;
     };
 }
 
