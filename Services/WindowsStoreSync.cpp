@@ -75,6 +75,12 @@ namespace wan
                 else
                 {
                     auto store = co_await ChatMessageManager::RequestStoreAsync();
+                    if (!store)
+                    {
+                        // Calling through a null store would crash; keep the rows pending for the next pass.
+                        core::Log::Write(L"Store sync will retry later: Windows returned no message store");
+                        pending.clear();
+                    }
                     for (auto const& m : pending)
                     {
                         ChatMessage cm;

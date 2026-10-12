@@ -4,7 +4,9 @@ namespace wan::core
 {
     bool ScanBatch(std::vector<StoreEntry> const& batch,
                    std::function<bool(std::wstring const&)> const& isKnown,
-                   std::vector<StoreEntry>& fresh)
+                   std::vector<StoreEntry>& fresh,
+                   int& knownRun,
+                   int stopAfterKnown)
     {
         for (auto const& entry : batch)
         {
@@ -14,8 +16,13 @@ namespace wan::core
             }
             if (isKnown(entry.id))
             {
-                return true;
+                if (++knownRun >= stopAfterKnown)
+                {
+                    return true;
+                }
+                continue;
             }
+            knownRun = 0;
             fresh.push_back(entry);
         }
         return false;

@@ -82,6 +82,8 @@ namespace wan::core
         std::vector<Thread> Threads(std::wstring const& search = L"");
         std::vector<Message> MessagesInThread(std::wstring const& threadKey);
         int MarkThreadRead(std::wstring const& threadKey);
+        // Marks rows left in "sending" by an earlier run as failed (never re-sends). Returns rows changed.
+        int FailInterruptedSends(std::wstring const& detail);
 
         std::vector<UssdCode> UssdCodes();
         int64_t AddUssdCode(std::wstring const& code, std::wstring const& label);

@@ -30,6 +30,11 @@ namespace wan
         try
         {
             s.db = std::make_unique<core::MessageDb>((s.localState / L"wanutility.db").wstring());
+            // A send cut off by Exit or a crash would otherwise show "Sending…" forever with no Retry.
+            if (const int n = s.db->FailInterruptedSends(L"Interrupted when the app closed. It may or may not have been sent."); n > 0)
+            {
+                core::Log::Write(L"Marked " + std::to_wstring(n) + L" interrupted send(s) as failed");
+            }
         }
         catch (core::DbError const& e)
         {

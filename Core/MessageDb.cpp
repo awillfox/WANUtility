@@ -280,6 +280,13 @@ namespace wan::core
         return sqlite3_changes(m_db);
     }
 
+    int MessageDb::FailInterruptedSends(std::wstring const& detail)
+    {
+        Stmt s(m_db, L"UPDATE messages SET status = ?1, error_detail = ?2 WHERE direction = ?3 AND status = ?4;");
+        s.Bind(1, I(MessageStatus::Failed)).Bind(2, detail).Bind(3, I(Direction::Out)).Bind(4, I(MessageStatus::Sending)).Run();
+        return sqlite3_changes(m_db);
+    }
+
     std::vector<UssdCode> MessageDb::UssdCodes()
     {
         Stmt s(m_db, L"SELECT id, code, label, sort_order FROM ussd_codes ORDER BY sort_order, id;");

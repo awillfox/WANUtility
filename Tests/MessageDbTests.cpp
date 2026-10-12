@@ -206,6 +206,20 @@ public:
         Assert::AreEqual(std::wstring(L"2"), *db.GetSetting(L"first_import_done"));
     }
 
+    TEST_METHOD(InterruptedSendsBecomeFailedAndRetryable)
+    {
+        MessageDb db(m_path.wstring());
+        auto stuck = db.InsertOutgoing(L"0889605613", L"stuck", 1000);  // app exited mid-send
+        auto sent = db.InsertOutgoing(L"0889605613", L"ok", 2000);
+        db.MarkSent(sent);
+        Assert::AreEqual(1, db.FailInterruptedSends(L"Interrupted"));
+        auto m = *db.MessageById(stuck);
+        Assert::IsTrue(m.status == MessageStatus::Failed);
+        Assert::AreEqual(std::wstring(L"Interrupted"), m.errorDetail);
+        Assert::IsTrue(db.MessageById(sent)->status == MessageStatus::Sent);
+        Assert::AreEqual(0, db.FailInterruptedSends(L"Interrupted"));
+    }
+
     TEST_METHOD(OpeningAnInvalidPathThrowsDbError)
     {
         auto bad = std::filesystem::temp_directory_path() / L"no_such_dir_wanutility" / L"x" / L"y.db";

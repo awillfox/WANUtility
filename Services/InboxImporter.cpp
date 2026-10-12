@@ -72,6 +72,10 @@ namespace wan
 
                 std::vector<core::StoreEntry> fresh;
                 std::unordered_map<std::wstring, ChatMessage> byId;
+                // Stop only after this many already-imported incoming messages in a row: the store's sort
+                // order is not guaranteed to match arrival order (e.g. SMS queued at the SMSC).
+                constexpr int kStopAfterKnown = 20;
+                int knownRun = 0;
                 auto reader = m_store.GetMessageReader();
                 while (true)
                 {
@@ -87,7 +91,7 @@ namespace wan
                         entries.push_back({ id, m.IsIncoming() });
                         byId.emplace(id, m);
                     }
-                    if (core::ScanBatch(entries, isKnown, fresh))
+                    if (core::ScanBatch(entries, isKnown, fresh, knownRun, kStopAfterKnown))
                     {
                         break;
                     }
