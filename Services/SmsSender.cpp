@@ -4,6 +4,7 @@
 #include "Services/ErrorText.h"
 #include "Services/ModemService.h"
 #include "Services/TimeUtil.h"
+#include "Services/WindowsStoreSync.h"
 #include "Core/Log.h"
 #include "Core/PhoneNumber.h"
 
@@ -116,7 +117,7 @@ namespace wan
 
         if (failure.empty())
         {
-            // [after-sent]
+            s.storeSync->SyncPending();
         }
     }
 }

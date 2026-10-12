@@ -150,6 +150,7 @@
     <ClInclude Include="Services\UssdSessionManager.h" />
     <ClInclude Include="Services\InboxImporter.h" />
     <ClInclude Include="Services\SmsSender.h" />
+    <ClInclude Include="Services\WindowsStoreSync.h" />
     <ClInclude Include="MessagesPage.xaml.h"><DependentUpon>MessagesPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="UssdPage.xaml.h"><DependentUpon>UssdPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="SettingsPage.xaml.h"><DependentUpon>SettingsPage.xaml</DependentUpon></ClInclude>
@@ -196,6 +197,7 @@
     <ClCompile Include="Services\UssdSessionManager.cpp" />
     <ClCompile Include="Services\InboxImporter.cpp" />
     <ClCompile Include="Services\SmsSender.cpp" />
+    <ClCompile Include="Services\WindowsStoreSync.cpp" />
     <ClCompile Include="MessagesPage.xaml.cpp"><DependentUpon>MessagesPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="UssdPage.xaml.cpp"><DependentUpon>UssdPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="SettingsPage.xaml.cpp"><DependentUpon>SettingsPage.xaml</DependentUpon></ClCompile>

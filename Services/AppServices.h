@@ -5,6 +5,7 @@
 #include "Services/UssdSessionManager.h"
 #include "Services/InboxImporter.h"
 #include "Services/SmsSender.h"
+#include "Services/WindowsStoreSync.h"
 
 #include <filesystem>
 #include <memory>
@@ -35,6 +36,8 @@ namespace wan
         std::unique_ptr<InboxImporter> importer;
 
         std::unique_ptr<SmsSender> sms;
+
+        std::unique_ptr<WindowsStoreSync> storeSync;
 
         // [members]
     };

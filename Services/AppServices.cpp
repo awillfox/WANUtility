@@ -47,6 +47,9 @@ namespace wan
 
         s.sms = std::make_unique<SmsSender>();
 
+        s.storeSync = std::make_unique<WindowsStoreSync>();
+        s.storeSync->Start();
+
         // [services]
     }
 }
