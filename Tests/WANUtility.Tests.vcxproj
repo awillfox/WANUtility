@@ -53,6 +53,8 @@
     <ClCompile Include="MessageDbTests.cpp" />
     <ClCompile Include="..\Core\Log.cpp" />
     <ClCompile Include="LogTests.cpp" />
+    <ClCompile Include="..\Core\InboxScan.cpp" />
+    <ClCompile Include="InboxScanTests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

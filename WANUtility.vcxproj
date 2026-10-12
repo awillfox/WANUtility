@@ -134,6 +134,7 @@
     <ClInclude Include="Core\UssdMenuParser.h" />
     <ClInclude Include="Core\MessageDb.h" />
     <ClInclude Include="Core\Log.h" />
+    <ClInclude Include="Core\InboxScan.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -162,6 +163,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Core\Log.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Core\InboxScan.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="App.xaml.cpp">
