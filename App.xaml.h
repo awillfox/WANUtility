@@ -15,7 +15,8 @@ namespace winrt::WANUtility::implementation
         void ExitApp();
 
     private:
-        void HandleActivation(Microsoft::Windows::AppLifecycle::AppActivationArguments const& args, bool fromRedirect);
+        // toastThread is the clicked toast's thread key (AppNotification activations only).
+        void HandleActivation(Microsoft::Windows::AppLifecycle::ExtendedActivationKind kind, std::wstring const& toastThread, bool fromRedirect);
 
         WANUtility::MainWindow m_window{ nullptr };
     };

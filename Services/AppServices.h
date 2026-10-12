@@ -7,6 +7,7 @@
 #include "Services/SmsSender.h"
 #include "Services/WindowsStoreSync.h"
 #include "Services/TrayIcon.h"
+#include "Services/Notifier.h"
 
 #include <filesystem>
 #include <memory>
@@ -41,6 +42,8 @@ namespace wan
         std::unique_ptr<WindowsStoreSync> storeSync;
 
         std::unique_ptr<TrayIcon> tray;
+
+        std::unique_ptr<Notifier> notifier;
 
         // [members]
     };
