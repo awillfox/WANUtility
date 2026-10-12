@@ -102,7 +102,7 @@
       <PreprocessorDefinitions>DISABLE_XAML_GENERATED_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>winsqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winsqlite3.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -151,6 +151,7 @@
     <ClInclude Include="Services\InboxImporter.h" />
     <ClInclude Include="Services\SmsSender.h" />
     <ClInclude Include="Services\WindowsStoreSync.h" />
+    <ClInclude Include="Services\TrayIcon.h" />
     <ClInclude Include="MessagesPage.xaml.h"><DependentUpon>MessagesPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="UssdPage.xaml.h"><DependentUpon>UssdPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="SettingsPage.xaml.h"><DependentUpon>SettingsPage.xaml</DependentUpon></ClInclude>
@@ -198,6 +199,7 @@
     <ClCompile Include="Services\InboxImporter.cpp" />
     <ClCompile Include="Services\SmsSender.cpp" />
     <ClCompile Include="Services\WindowsStoreSync.cpp" />
+    <ClCompile Include="Services\TrayIcon.cpp" />
     <ClCompile Include="MessagesPage.xaml.cpp"><DependentUpon>MessagesPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="UssdPage.xaml.cpp"><DependentUpon>UssdPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="SettingsPage.xaml.cpp"><DependentUpon>SettingsPage.xaml</DependentUpon></ClCompile>
@@ -210,6 +212,11 @@
     <Midl Include="MessagesPage.idl"><SubType>Code</SubType><DependentUpon>MessagesPage.xaml</DependentUpon></Midl>
     <Midl Include="UssdPage.idl"><SubType>Code</SubType><DependentUpon>UssdPage.xaml</DependentUpon></Midl>
     <Midl Include="SettingsPage.idl"><SubType>Code</SubType><DependentUpon>SettingsPage.xaml</DependentUpon></Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Tray.ico">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt">

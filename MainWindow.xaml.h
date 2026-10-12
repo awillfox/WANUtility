@@ -24,7 +24,7 @@ namespace winrt::WANUtility::implementation
         void UpdateModemUi();
 
         HWND m_hwnd{};
-        bool m_closeToTray = false; // Task 13 turns this on
+        bool m_closeToTray = true;
         bool m_allowClose = false;
     };
 }

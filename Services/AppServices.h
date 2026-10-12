@@ -6,6 +6,7 @@
 #include "Services/InboxImporter.h"
 #include "Services/SmsSender.h"
 #include "Services/WindowsStoreSync.h"
+#include "Services/TrayIcon.h"
 
 #include <filesystem>
 #include <memory>
@@ -38,6 +39,8 @@ namespace wan
         std::unique_ptr<SmsSender> sms;
 
         std::unique_ptr<WindowsStoreSync> storeSync;
+
+        std::unique_ptr<TrayIcon> tray;
 
         // [members]
     };

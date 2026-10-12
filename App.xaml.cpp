@@ -29,6 +29,13 @@ namespace winrt::WANUtility::implementation
     {
         wan::InitializeServices();
 
+        auto& services = wan::Services();
+        services.tray = std::make_unique<wan::TrayIcon>();
+        services.tray->Create(std::wstring(Windows::ApplicationModel::Package::Current().InstalledLocation().Path()) + L"\\Assets\\Tray.ico",
+                              L"WANUtility",
+                              [this] { ShowMainWindow(); },
+                              [this] { ExitApp(); });
+
         // [app-init]
 
         m_window = make<MainWindow>();
@@ -64,6 +71,8 @@ namespace winrt::WANUtility::implementation
     void App::ExitApp()
     {
         wan::core::Log::Write(L"Exit requested");
+
+        if (wan::Services().tray) wan::Services().tray->Remove();
 
         // [exit]
 
