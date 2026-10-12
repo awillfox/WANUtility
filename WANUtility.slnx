@@ -7,4 +7,5 @@
   <Project Path="WANUtility.vcxproj">
     <Deploy />
   </Project>
+  <Project Path="Tests/WANUtility.Tests.vcxproj" />
 </Solution>
