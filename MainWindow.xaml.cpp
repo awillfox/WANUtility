@@ -5,6 +5,7 @@
 #endif
 
 #include "Services/AppServices.h"
+#include "Services/ModemService.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -33,6 +34,9 @@ namespace winrt::WANUtility::implementation
         {
             ShowError(s.fatalError);
         }
+
+        s.modem->StatusChanged.Add([this] { UpdateModemUi(); });
+        UpdateModemUi();
 
         // [window-init]
 
@@ -98,6 +102,26 @@ namespace winrt::WANUtility::implementation
             AppWindow().Hide();
             wan::Services().windowFocused = false;
         }
+    }
+
+    void MainWindow::UpdateModemUi()
+    {
+        auto const& st = wan::Services().modem->Status();
+        std::wstring text = st.carrier.empty() ? L"Mobile" : st.carrier;
+        if (st.signalBars >= 0)
+        {
+            text += L" · " + std::to_wstring(st.signalBars) + L"/5";
+        }
+        CarrierText().Text(text);
+
+        // Segoe Fluent Icons SignalBars1..SignalBars5 = U+EC37..U+EC3B (0 bars reuses 1 at low opacity).
+        static constexpr wchar_t kBars[] = { L'\uEC37', L'\uEC37', L'\uEC38', L'\uEC39', L'\uEC3A', L'\uEC3B' };
+        SignalIcon().Glyph(hstring(std::wstring(1, kBars[std::clamp(st.signalBars, 0, 5)])));
+        SignalIcon().Opacity(st.ready && st.signalBars > 0 ? 1.0 : 0.4);
+
+        ModemBar().Title(L"Modem not ready");
+        ModemBar().Message(st.problem);
+        ModemBar().IsOpen(!st.ready);
     }
 
     void MainWindow::ShowError(std::wstring const& message)

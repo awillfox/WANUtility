@@ -21,6 +21,7 @@ namespace winrt::WANUtility::implementation
     private:
         void OnClosing(Microsoft::UI::Windowing::AppWindow const& sender, Microsoft::UI::Windowing::AppWindowClosingEventArgs const& args);
         void ShowError(std::wstring const& message);
+        void UpdateModemUi();
 
         HWND m_hwnd{};
         bool m_closeToTray = false; // Task 13 turns this on

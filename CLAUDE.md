@@ -12,6 +12,8 @@ Windows 11 utility for the machine's built-in cellular (WAN) modem: run USSD cod
 ## Hardware facts (observed 2026-10-12, not assumed)
 
 - Modem: Quectel EM120R-GL, firmware `EM120RGLAPR02A07M4G`, carrier dtac (Thailand).
+- `MobileBroadbandNetwork.RegisteredProviderName` = `dtac.Better Together` (observed in the app, Task 8);
+  WWAN `GetSignalBars()` returns 0–5 (observed 5).
 - Attached over PCIe (`Quectel PCI Express`, VEN_1EAC), exposed to Windows as MBIM
   ("Generic Mobile Broadband Adapter"), plus a QMI channel (`Quectel QMUX Interconnect`).
 - **No COM / AT port is exposed.** `AT+CUSD` / `AT+CMGS` over serial is NOT available as-is.

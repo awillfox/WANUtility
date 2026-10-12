@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/MessageDb.h"
 #include "Services/Signal.h"
+#include "Services/ModemService.h"
 
 #include <filesystem>
 #include <memory>
@@ -23,6 +24,8 @@ namespace wan
         Signal<std::wstring> ErrorRaised;        // non-fatal error text for the error bar
         Signal<std::wstring> MessagesChanged;    // thread key, or L"" when several threads changed
         Signal<std::wstring> OpenThreadRequested;
+
+        std::unique_ptr<ModemService> modem;
 
         // [members]
     };

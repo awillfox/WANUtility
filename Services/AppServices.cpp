@@ -37,6 +37,9 @@ namespace wan
             core::Log::Write(L"FATAL " + s.fatalError);
         }
 
+        s.modem = std::make_unique<ModemService>();
+        s.modem->Initialize();
+
         // [services]
     }
 }
