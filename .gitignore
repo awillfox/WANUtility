@@ -1,0 +1,21 @@
+# Build output
+x64/
+ARM64/
+Win32/
+WANUtility/x64/
+WANUtility/ARM64/
+Generated Files/
+AppPackages/
+BundleArtifacts/
+
+# NuGet (restored from packages.config)
+packages/
+
+# Visual Studio
+.vs/
+*.user
+*.aps
+*.ipch
+
+# Brainstorm mockups
+.superpowers/
