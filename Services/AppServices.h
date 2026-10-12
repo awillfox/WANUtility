@@ -2,6 +2,7 @@
 #include "Core/MessageDb.h"
 #include "Services/Signal.h"
 #include "Services/ModemService.h"
+#include "Services/UssdSessionManager.h"
 
 #include <filesystem>
 #include <memory>
@@ -26,6 +27,8 @@ namespace wan
         Signal<std::wstring> OpenThreadRequested;
 
         std::unique_ptr<ModemService> modem;
+
+        std::unique_ptr<UssdSessionManager> ussd;
 
         // [members]
     };

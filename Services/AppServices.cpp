@@ -40,6 +40,8 @@ namespace wan
         s.modem = std::make_unique<ModemService>();
         s.modem->Initialize();
 
+        s.ussd = std::make_unique<UssdSessionManager>();
+
         // [services]
     }
 }

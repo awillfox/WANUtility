@@ -147,6 +147,7 @@
     <ClInclude Include="Services\Signal.h" />
     <ClInclude Include="Services\TimeUtil.h" />
     <ClInclude Include="Services\ModemService.h" />
+    <ClInclude Include="Services\UssdSessionManager.h" />
     <ClInclude Include="MessagesPage.xaml.h"><DependentUpon>MessagesPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="UssdPage.xaml.h"><DependentUpon>UssdPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="SettingsPage.xaml.h"><DependentUpon>SettingsPage.xaml</DependentUpon></ClInclude>
@@ -190,6 +191,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Services\AppServices.cpp" />
     <ClCompile Include="Services\ModemService.cpp" />
+    <ClCompile Include="Services\UssdSessionManager.cpp" />
     <ClCompile Include="MessagesPage.xaml.cpp"><DependentUpon>MessagesPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="UssdPage.xaml.cpp"><DependentUpon>UssdPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="SettingsPage.xaml.cpp"><DependentUpon>SettingsPage.xaml</DependentUpon></ClCompile>
