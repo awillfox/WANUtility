@@ -57,9 +57,12 @@ Windows 11 utility for the machine's built-in cellular (WAN) modem: run USSD cod
 - Spec: `docs/superpowers/specs/2026-10-12-wanutility-design.md` (all design decisions live there).
 - Plan: `docs/superpowers/plans/2026-10-12-wanutility-v1.md` (16 tasks). Deviations from spec, approved
   with the plan: CppUnitTest + vstest instead of GoogleTest (no nuget.exe here); threads computed by query.
-- Current state: executing the plan natively on branch `feat/v1` (baseline commit on `main`). Progress
-  ledger (git-ignored): `.superpowers/sdd/2026-10-12-wanutility-v1/progress.md`, which lists completed tasks
-  and every ruling that deviates from the plan. Git author: `Nate <natee@shipnity.com>` (repo-local).
+- Current state: v1 implemented per `docs/superpowers/plans/2026-10-12-wanutility-v1.md` on branch `feat/v1`
+  (baseline commit on `main`, not yet merged or pushed); verification in
+  `docs/superpowers/verification/2026-10-12-v1-verification.md` (some rows await user hands-on checks;
+  radio-off tests skipped by the user). Git author: `Nate <natee@shipnity.com>` (repo-local).
+- Known open items (from the final review, deferred): no app-side timeout if a USSD/SMS operation never
+  completes after the modem vanishes; minor items listed in the verification/ledger.
 - Commands: unit tests `scripts\test.ps1`; build + (re)register + launch `scripts\deploy.ps1` (keeps LocalState).
 - Test values approved by user: USSD `*101#`; test SMS recipient `0889605613`.
 - Real SMS costs money: never send automatically more than once. The spike guards this with
@@ -76,7 +79,15 @@ Windows 11 utility for the machine's built-in cellular (WAN) modem: run USSD cod
 | Receive SMS (registration) | `SmsMessageRegistration::Register` | **Denied**: `0xD0000022` (STATUS_ACCESS_DENIED). Don't use. |
 | Legacy `SmsDevice` / message store | — | **Removed** from SDK 10.0.28000 metadata. Not available. |
 
-dtac codes: `*101#` = balance (free); `*101*1#` = request package-status SMS (arrives ~1–2 min later).
+dtac codes: `*101#` = balance (free); `*101*1#` = request package-status SMS (arrived ~12 s later in v1 tests).
+`*103#` = packages menu, `ActionRequired` (code 1) with lines `1 เน็ต2GB 35บ./ว`, `2 เน็ต2GB 24บ/ว`, `3 เติม50บ.ฟรีเน็ต1GB`
+(all purchases — navigate/End only).
+
+v1 observations (2026-10-12, real app):
+- Windows chat store **write works**: `SaveMessageAsync` of a sent SMS returns ids like `22,6,6b`; the importer
+  does not duplicate it.
+- Send: short SMS and a 103-char Thai SMS both reported `sent` by `SmsDevice2` (phone-side completeness: see
+  the verification file).
 
 ## Gotchas
 
