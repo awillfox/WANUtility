@@ -6,6 +6,7 @@
 
 #include "Services/AppServices.h"
 #include "Services/ModemService.h"
+#include "Services/GomoService.h"
 
 using namespace winrt;
 using namespace Microsoft::UI::Xaml;
@@ -63,6 +64,10 @@ namespace winrt::WANUtility::implementation
         else if (tag == L"ussd")
         {
             ContentFrame().Navigate(xaml_typename<WANUtility::UssdPage>());
+        }
+        else if (tag == L"gomo")
+        {
+            ContentFrame().Navigate(xaml_typename<WANUtility::GomoPage>());
         }
     }
 
@@ -122,6 +127,8 @@ namespace winrt::WANUtility::implementation
         ModemBar().Title(L"Modem not ready");
         ModemBar().Message(st.problem);
         ModemBar().IsOpen(!st.ready);
+
+        GomoItem().IsEnabled(wan::Services().gomo->Available());
     }
 
     void MainWindow::ShowError(std::wstring const& message)

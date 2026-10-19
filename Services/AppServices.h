@@ -8,6 +8,7 @@
 #include "Services/WindowsStoreSync.h"
 #include "Services/TrayIcon.h"
 #include "Services/Notifier.h"
+#include "Services/GomoService.h"
 
 #include <filesystem>
 #include <memory>
@@ -44,6 +45,8 @@ namespace wan
         std::unique_ptr<TrayIcon> tray;
 
         std::unique_ptr<Notifier> notifier;
+
+        std::unique_ptr<GomoService> gomo;
 
         // [members]
     };

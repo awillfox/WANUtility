@@ -134,13 +134,25 @@ namespace wan
             core::Log::Write(L"Reading signal failed: " + DescribeError(e));
         }
 
+        try
+        {
+            auto internet = NetworkInformation::GetInternetConnectionProfile();
+            s.wwanInternet = internet && internet.IsWwanConnectionProfile();
+        }
+        catch (hresult_error const& e)
+        {
+            core::Log::Write(L"Reading internet connection failed: " + DescribeError(e));
+        }
+
         const bool changed = s.ready != m_status.ready || s.carrier != m_status.carrier ||
-                             s.signalBars != m_status.signalBars || s.problem != m_status.problem;
+                             s.signalBars != m_status.signalBars || s.problem != m_status.problem ||
+                             s.wwanInternet != m_status.wwanInternet;
         m_status = s;
         if (changed)
         {
             core::Log::Write(L"Modem: ready=" + std::to_wstring(s.ready) + L" carrier='" + s.carrier +
-                             L"' bars=" + std::to_wstring(s.signalBars) + L" problem='" + s.problem + L"'");
+                             L"' bars=" + std::to_wstring(s.signalBars) + L" wwanInternet=" + std::to_wstring(s.wwanInternet) +
+                             L" problem='" + s.problem + L"'");
             StatusChanged.Raise();
         }
     }

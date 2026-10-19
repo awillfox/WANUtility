@@ -45,6 +45,11 @@
                         <FontIcon Glyph="&#xE75F;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
+                <NavigationViewItem x:Name="GomoItem" Content="GOMO" Tag="gomo">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xEB05;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
             </NavigationView.MenuItems>
 
             <NavigationView.PaneFooter>

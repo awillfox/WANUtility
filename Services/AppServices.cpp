@@ -55,6 +55,8 @@ namespace wan
         s.storeSync = std::make_unique<WindowsStoreSync>();
         s.storeSync->Start();
 
+        s.gomo = std::make_unique<GomoService>();
+
         // [services]
     }
 }

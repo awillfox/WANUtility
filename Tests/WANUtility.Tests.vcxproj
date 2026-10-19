@@ -38,10 +38,12 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)Auxiliary\VS\UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>winsqlite3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winsqlite3.lib;windowsapp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Core\GomoAccount.cpp" />
+    <ClCompile Include="GomoAccountTests.cpp" />
     <ClCompile Include="..\Core\Ucs2.cpp" />
     <ClCompile Include="Ucs2Tests.cpp" />
     <ClCompile Include="TextUtilTests.cpp" />

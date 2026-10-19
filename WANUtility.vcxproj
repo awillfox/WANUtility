@@ -102,7 +102,7 @@
       <PreprocessorDefinitions>DISABLE_XAML_GENERATED_MAIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>winsqlite3.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winsqlite3.lib;shell32.lib;winhttp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
@@ -136,6 +136,7 @@
     <ClInclude Include="Core\MessageDb.h" />
     <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\InboxScan.h" />
+    <ClInclude Include="Core\GomoAccount.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
@@ -154,8 +155,11 @@
     <ClInclude Include="Services\TrayIcon.h" />
     <ClInclude Include="Services\Notifier.h" />
     <ClInclude Include="Services\StartupSetting.h" />
+    <ClInclude Include="Services\GomoClient.h" />
+    <ClInclude Include="Services\GomoService.h" />
     <ClInclude Include="MessagesPage.xaml.h"><DependentUpon>MessagesPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="UssdPage.xaml.h"><DependentUpon>UssdPage.xaml</DependentUpon></ClInclude>
+    <ClInclude Include="GomoPage.xaml.h"><DependentUpon>GomoPage.xaml</DependentUpon></ClInclude>
     <ClInclude Include="SettingsPage.xaml.h"><DependentUpon>SettingsPage.xaml</DependentUpon></ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +167,7 @@
     <Page Include="MainWindow.xaml" />
     <Page Include="MessagesPage.xaml" />
     <Page Include="UssdPage.xaml" />
+    <Page Include="GomoPage.xaml" />
     <Page Include="SettingsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +192,9 @@
     <ClCompile Include="Core\InboxScan.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Core\GomoAccount.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
@@ -204,8 +212,11 @@
     <ClCompile Include="Services\TrayIcon.cpp" />
     <ClCompile Include="Services\Notifier.cpp" />
     <ClCompile Include="Services\StartupSetting.cpp" />
+    <ClCompile Include="Services\GomoClient.cpp" />
+    <ClCompile Include="Services\GomoService.cpp" />
     <ClCompile Include="MessagesPage.xaml.cpp"><DependentUpon>MessagesPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="UssdPage.xaml.cpp"><DependentUpon>UssdPage.xaml</DependentUpon></ClCompile>
+    <ClCompile Include="GomoPage.xaml.cpp"><DependentUpon>GomoPage.xaml</DependentUpon></ClCompile>
     <ClCompile Include="SettingsPage.xaml.cpp"><DependentUpon>SettingsPage.xaml</DependentUpon></ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +226,7 @@
     </Midl>
     <Midl Include="MessagesPage.idl"><SubType>Code</SubType><DependentUpon>MessagesPage.xaml</DependentUpon></Midl>
     <Midl Include="UssdPage.idl"><SubType>Code</SubType><DependentUpon>UssdPage.xaml</DependentUpon></Midl>
+    <Midl Include="GomoPage.idl"><SubType>Code</SubType><DependentUpon>GomoPage.xaml</DependentUpon></Midl>
     <Midl Include="SettingsPage.idl"><SubType>Code</SubType><DependentUpon>SettingsPage.xaml</DependentUpon></Midl>
   </ItemGroup>
   <ItemGroup>

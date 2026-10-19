@@ -10,6 +10,7 @@ namespace wan
         bool ready = false;
         std::wstring carrier;  // empty when unknown
         int signalBars = -1;   // 0–5, -1 when unknown (e.g. no active cellular connection)
+        bool wwanInternet = false; // Windows' internet connection is the cellular one
         std::wstring problem;  // user-facing reason when !ready
     };
 

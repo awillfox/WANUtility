@@ -1,0 +1,8 @@
+namespace WANUtility
+{
+    [default_interface]
+    runtimeclass GomoPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        GomoPage();
+    }
+}
